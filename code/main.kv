@@ -1,0 +1,144 @@
+#:kivy 2.0.0
+#:import Factory kivy.factory.Factory
+
+#<customCard@MDCard>:
+    #size_hint: None, None
+    #size: "200dp", "100dp"
+    #focus_behavior: True
+    #ripple_behavior: True
+    #on_release: print("worked") 
+
+#<recipe_card>:
+    #size_hint_y: None
+    #height: content.height
+
+    #MDCardSwipeLayerBox:
+        #padding: "8dp"
+
+        #MDIconButton:
+            #icon: "trash-can"
+            #pos_hint: {"center_y": .5}
+            #on_release: app.remove_item(root)
+    
+    #MDCardSwipeFrontBox:
+
+        #OneLineListItem:
+            #id: content
+            #text: root.text
+            #_no_ripple_effect: True
+
+
+# <custom_card>:
+#     size_hint: None, None
+#     size: "200dp", "100dp"
+#     pos_hint: {"center_x": .5}
+#     focus_behavior: True
+#     ripple_behavior: True
+#     on_press: print(root.printmsg)
+#     elevation: 0
+#     radius: [36,]
+#     border_radius: 20
+#     color: app.theme_cls.primary_color
+    
+    
+#     MDLabel: 
+#         text_size: root.width, root.height
+#         valign: "center"
+#         halign: "center"
+#         text: root.text
+
+<custom_list_item>:
+    text: root.text
+    on_press: print(root.printmsg)
+
+<MyPopup@Popup>:
+    auto_dismiss: False
+    title: 'Add Recipe'
+    GridLayout:
+        cols: 1
+        spacing: 10
+
+        MDTextField:
+            hint_text: 'Recipe Title'
+
+        MDTextField:
+            hint_text: 'Ingredients'
+            max_height: "200dp"
+            multiline: True
+
+        BoxLayout:
+            orientation:'horizontal'
+
+            Button:
+                size_hint: .1,.1
+                text: 'Cancel'
+                on_release: root.dismiss()
+            Button:
+                size_hint: .1,.1
+                text: 'Save'
+
+
+BoxLayout:
+    orientation: "vertical"
+
+    MDToolbar:
+        title: "Your Shopping List"
+        specific_text_color: 1,1,1,1
+        
+    MDBottomNavigation:
+        #fancy screen manager
+
+        #PAGE 1
+        MDBottomNavigationItem:
+            #this is a fancy screen
+            text: "screen 1 text"
+            name: "screen1"
+            icon: "account-cog"
+            FloatLayout:
+
+
+                ScrollView:
+                    do_scroll_x: False
+                    do_scroll_y: True
+                    MDList:
+                        id: recipe_list
+                        OneLineAvatarListItem:
+                            text: "Add Recipe"
+                            on_press: Factory.MyPopup().open()
+                            ImageLeftWidget:
+                                #source: source here
+            
+
+            
+            # BoxLayout:
+            #     orientation: 'horizontal'
+            #     spacing: 10
+            #     ScrollView:
+            #         size_hint: 1,1
+            #         MDList:
+            #             size_hint: None, None
+            #             id: experiments
+            #             spacing: "10dp"
+                # MDFillRoundFlatIconButton:
+                #     size_hint: 1, .3
+                #     icon: "android"
+                #     text: "add recipe"
+                #     specific_text_color: 1,1,1,1
+                #     pos_hint: {'center_x': 0.5, 'center_y': 0.06 }
+
+        #PAGE 2
+        MDBottomNavigationItem:
+            text: "screen 2 text"
+            name: "screen2"
+            icon: "plus"
+            ScrollView:
+                MDTextField:
+                    size_hint_x: 1
+                    hint_text: "Shopping List"
+                    max_height: "200dp"
+                    mode: "fill"
+                    fill_color: 0, 0, 0, .1
+                    multiline: True
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+
