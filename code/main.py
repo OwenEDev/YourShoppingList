@@ -23,7 +23,6 @@ cur.execute('''CREATE TABLE IF NOT EXISTS RECIPES
 
 class custom_list_item(OneLineListItem):
     text = StringProperty()
-    printmsg = StringProperty()
 
 
 class MainApp(MDApp):
@@ -46,12 +45,12 @@ class MainApp(MDApp):
             print(print_data)
             
             self.root.ids.recipe_list.add_widget(
-                custom_list_item(text=f"{print_data}", printmsg=f"{print_data} worked")
+                custom_list_item(text=f"{print_data}")
             ) 
 
-
     def add_to_list(self):
-        pass
+        print("added")
+        self.root.ids.shopping_list.text += f"\nsajdiasdjsa"
 
 
 
