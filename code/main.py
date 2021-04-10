@@ -4,6 +4,7 @@ from kivymd.uix.list import OneLineListItem
 from kivymd.uix.list import OneLineAvatarListItem
 from kivymd.uix.button import MDFillRoundFlatIconButton
 from kivy.properties import StringProperty
+from kivy.properties import NumericProperty
 import sqlite3
 
 con = sqlite3.connect("recipedb.db")
@@ -48,9 +49,20 @@ class MainApp(MDApp):
                 custom_list_item(text=f"{print_data}")
             ) 
 
-    def add_to_list(self):
+
+    def add_to_list(self, text):
+
+        item_text = text
+
+        cur.execute('''SELECT ingredients FROM RECIPES WHERE recipe = ?''', 
+        (item_text,))
+        data_ingredients = cur.fetchone()
+        data_ingredients_string = str(data_ingredients)
+        data_ingredients_print = data_ingredients_string[2:-3]
+
+        self.root.ids.shopping_list.text += f"\n{data_ingredients_print}"
+
         print("added")
-        self.root.ids.shopping_list.text += f"\nsajdiasdjsa"
 
 
 
