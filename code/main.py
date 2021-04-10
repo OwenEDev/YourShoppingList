@@ -5,6 +5,7 @@ from kivymd.uix.list import OneLineAvatarListItem
 from kivymd.uix.button import MDFillRoundFlatIconButton
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
+from kivy.uix.popup import Popup
 import sqlite3
 
 con = sqlite3.connect("recipedb.db")
@@ -64,6 +65,20 @@ class MainApp(MDApp):
 
         print("added")
 
+    def save_recipe(self, recipe_title, recipe_ingredients):
+        
+        data_recipe_title = recipe_title
+        data_recipe_ingredients = recipe_ingredients
+        
+        cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
+        VALUES (?,?)''', (recipe_title, recipe_ingredients,))
+
+        con.commit()
+
+        print("saved")
+
+        #issue atm is that when recipe is added it prints a new line literally
+        #as \n :/
 
 
 if __name__ == '__main__':
