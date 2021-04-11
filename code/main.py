@@ -12,6 +12,9 @@ con = sqlite3.connect("recipedb.db")
 cur = con.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS RECIPES
                 (id INTEGER PRIMARY KEY, recipe text, ingredients text)''')
+
+cur.execute('''CREATE TABLE IF NOT EXISTS SHOPPING_LIST
+            (id INTEGER PRIMARY KEY, shopping_list text)''')
                 
 
 class custom_list_item(OneLineListItem):
@@ -95,6 +98,9 @@ class MainApp(MDApp):
             self.root.ids.recipe_list.add_widget(
                 custom_list_item(text=f"{print_data}")
             ) 
+
+    def save_shopping_list(self):
+        pass
 
 
 if __name__ == '__main__':

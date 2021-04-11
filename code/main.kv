@@ -16,14 +16,17 @@
             hint_text: 'Recipe Title'
             id: recipe_title
 
-        MDTextField:
-            hint_text: 'Ingredients'
-            max_height: "200dp"
-            multiline: True
-            id: ingredients
+        ScrollView:
+            size_hint: 
+            MDTextField:
+                hint_text: 'Ingredients'
+                max_height: "400dp"
+                multiline: True
+                id: ingredients
 
         BoxLayout:
             orientation:'horizontal'
+            size_hint: 1,.2
 
             Button:
                 size_hint: .1,.1
