@@ -32,7 +32,33 @@
             Button:
                 size_hint: .1,.1
                 text: 'Save'
-                on_release: app.save_recipe(recipe_title.text, ingredients.text)
+                on_release: app.save_recipe(recipe_title.text, ingredients.text), root.dismiss(), app.refresh_recipes()
+
+<DeletePopup@Popup>:
+    auto_dismiss: False
+    title: 'Delete Recipe'
+    GridLayout:
+        cols: 1
+        spacing: 10
+
+        MDTextField:
+            hint_text: 'Recipe to Delete'
+            id: recipe_to_delete
+
+        BoxLayout:
+            orientation:'horizontal'
+
+            Button:
+                size_hint: .1,.1
+                text: 'Cancel'
+                on_release: root.dismiss()
+            Button:
+                size_hint: .1,.1
+                text: 'Delete'
+                on_release: app.delete_recipe(recipe_to_delete.text), root.dismiss(), app.refresh_recipes()
+
+
+
 
 BoxLayout:
     orientation: "vertical"
@@ -55,12 +81,16 @@ BoxLayout:
                     do_scroll_x: False
                     do_scroll_y: True
                     MDList:
-                        id: recipe_list
                         OneLineAvatarListItem:
                             text: "Add Recipe"
                             on_press: Factory.MyPopup().open()
                             ImageLeftWidget:
                                 #source: source here
+                        OneLineAvatarListItem:
+                            text: "Delete Recipe"
+                            on_press: Factory.DeletePopup().open()
+                        MDList:
+                            id: recipe_list
 
         #PAGE 2
         MDBottomNavigationItem:

@@ -12,6 +12,7 @@ con = sqlite3.connect("recipedb.db")
 cur = con.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS RECIPES
                 (id INTEGER PRIMARY KEY, recipe text, ingredients text)''')
+                
 
 class custom_list_item(OneLineListItem):
     text = StringProperty()
@@ -65,14 +66,35 @@ class MainApp(MDApp):
         data_recipe_title = recipe_title
         data_recipe_ingredients = recipe_ingredients
         
-      
-      
         cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
         VALUES (?,?)''', (recipe_title, recipe_ingredients,))
 
         con.commit()
 
         print(recipe_title, recipe_ingredients)
+
+    def delete_recipe(self, recipe_title):
+        cur.execute('''DELETE FROM RECIPES WHERE recipe =?''', (recipe_title,))
+        con.commit()
+
+        print("deleted")
+
+    def refresh_recipes(self):
+        self.root.ids.recipe_list.clear_widgets()
+        
+        cur.execute('''SELECT recipe FROM RECIPES''')
+        r_data = cur.fetchall() 
+        r_rowcount = len(r_data) 
+
+        for i in range(r_rowcount):
+
+            string_data = str(r_data[i])
+            print_data = string_data[2:-3]
+            print(print_data)
+            
+            self.root.ids.recipe_list.add_widget(
+                custom_list_item(text=f"{print_data}")
+            ) 
 
 
 if __name__ == '__main__':
