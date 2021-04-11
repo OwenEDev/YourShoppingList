@@ -13,16 +13,6 @@ cur = con.cursor()
 cur.execute('''CREATE TABLE IF NOT EXISTS RECIPES
                 (id INTEGER PRIMARY KEY, recipe text, ingredients text)''')
 
-# cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
-# VALUES('toast', 'like..toasted bread?')''')
-# cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
-# VALUES('pizza', 'sauce bread and cheese')''')
-# cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
-# VALUES('pasta', 'just boil pasta?')''')
-#cur.execute('''INSERT INTO RECIPES(recipe, ingredients) VALUES ('risotto', 'risotto rice')''')
-
-#con.commit()
-
 class custom_list_item(OneLineListItem):
     text = StringProperty()
 
@@ -70,10 +60,15 @@ class MainApp(MDApp):
         data_recipe_title = recipe_title
         data_recipe_ingredients = recipe_ingredients
         
-        cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
-        VALUES (?,?)''', (recipe_title, recipe_ingredients,))
+        #could try taking sql data and turning it into a python dictionary, 
+        #which would make \n work properly
+      
+      
+      
+        # cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
+        # VALUES (?,?)''', (recipe_title, recipe_ingredients,))
 
-        con.commit()
+        # con.commit()
 
         print("saved")
 
