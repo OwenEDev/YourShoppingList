@@ -47,11 +47,16 @@ class MainApp(MDApp):
 
         cur.execute('''SELECT ingredients FROM RECIPES WHERE recipe = ?''', 
         (item_text,))
-        data_ingredients = cur.fetchone()
-        data_ingredients_string = str(data_ingredients)
-        data_ingredients_print = data_ingredients_string[2:-3]
 
-        self.root.ids.shopping_list.text += f"\n{data_ingredients_print}"
+        data_ingredients = cur.fetchone()
+        
+        data_ingredients_string = str(data_ingredients)
+
+        data_ingredients_cut = data_ingredients_string[2:-3]
+
+        data_ingredients_replace = data_ingredients_cut.replace("\\n", "\n")
+
+        self.root.ids.shopping_list.text += f"\n{data_ingredients_replace}"
 
         print("added")
 
@@ -60,20 +65,14 @@ class MainApp(MDApp):
         data_recipe_title = recipe_title
         data_recipe_ingredients = recipe_ingredients
         
-        #could try taking sql data and turning it into a python dictionary, 
-        #which would make \n work properly
       
       
-      
-        # cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
-        # VALUES (?,?)''', (recipe_title, recipe_ingredients,))
+        cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
+        VALUES (?,?)''', (recipe_title, recipe_ingredients,))
 
-        # con.commit()
+        con.commit()
 
-        print("saved")
-
-        #issue atm is that when recipe is added it prints a new line literally
-        #as \n :/
+        print(recipe_title, recipe_ingredients)
 
 
 if __name__ == '__main__':
