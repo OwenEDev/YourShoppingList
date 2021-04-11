@@ -66,15 +66,19 @@ class MainApp(MDApp):
 
     def save_recipe(self, recipe_title, recipe_ingredients):
         
-        data_recipe_title = recipe_title
-        data_recipe_ingredients = recipe_ingredients
+        # data_recipe_title = recipe_title
+        # data_recipe_ingredients = recipe_ingredients
         
-        cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
-        VALUES (?,?)''', (recipe_title, recipe_ingredients,))
+        if (recipe_title != ""):
 
-        con.commit()
 
-        print(recipe_title, recipe_ingredients)
+            cur.execute('''INSERT INTO RECIPES(recipe, ingredients)
+            VALUES (?,?)''', (recipe_title, recipe_ingredients,))
+
+            con.commit()
+
+            print(recipe_title, recipe_ingredients)
+        else: print("no recipe title")
 
     def delete_recipe(self, recipe_title):
         cur.execute('''DELETE FROM RECIPES WHERE recipe =?''', (recipe_title,))
